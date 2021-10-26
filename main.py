@@ -57,8 +57,38 @@ def test_get_perfect_squares():
     assert get_perfect_squares(3, 11) == [4, 9]
     assert get_perfect_squares(5, 35) == [9, 16, 25]
     assert get_perfect_squares(-1, 5) == [0, 1, 4]
+    
+def is_antipalindrome(n):
+
+    clone_n = n
+    inverse_n = 0
+    number_of_digits = 0
+
+    while clone_n:
+        inverse_n = inverse_n * 10 + clone_n % 10
+        clone_n //= 10
+        number_of_digits += 1
+
+    if number_of_digits % 2 == 1:
+        ok = 0
+    else:
+        ok = 1
+
+    while inverse_n:
+        if inverse_n % 10 == n % 10:
+            ok = ok + 1
+        if ok == 2:
+            return False
+        inverse_n //= 10
+        n //= 10
+    return True
 
 
+def test_is_antipalindrome():
+
+    assert is_antipalindrome(112316) == False
+    assert is_antipalindrome(123) == True
+    assert is_antipalindrome(562889) == True
 
 
 def main():
@@ -66,6 +96,7 @@ def main():
     while not finish:
         print("Exercitiul 1. Găsește ultimul număr prim mai mic decât un număr dat")
         print("Exercitiul 12. Afișează toate pătratele perfecte dintr-un interval închis dat")
+        print("Exercitiul 7. Determina daca un numar este anti-palindrom")
         print("x. Iesiti din program")
         option = input("Dati optiunea: ")
         if option == '1':
@@ -73,7 +104,7 @@ def main():
             print("Ultimul numar prim mai mic decat numarul dat este: ")
             print(get_largest_prime_below(n))
             test_get_largest_prime_below()
-        elif option == '2':
+        elif option == '12':
             print("Introduceti primul numar al unui interval: ")
             start = int(input())
             print("Ultimul numar al intervalului ales: ")
@@ -81,6 +112,10 @@ def main():
             print("Patratele perfecte din interval sunt: ")
             print(get_perfect_squares(start, end))
             test_get_perfect_squares()
+        elif option == '7':
+            n = int(input("Introduceti un numar: "))
+            print(is_antipalindrome(n))
+            test_is_antipalindrome()
         elif option == 'x':
             finish = True
         else:
